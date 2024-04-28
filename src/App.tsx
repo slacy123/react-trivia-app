@@ -1,31 +1,37 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import QuestionList from "./components/gameQuestions";
-import Game from "./components/Game";
-import GameElements from "./components/GameElements";
+import "./GameElements.css";
+import QuestionList from "./Components/gameQuestions";
 import { useState } from "react";
+import GameElements from "./Components/GameElements";
 
-function App() {
+export default function App() {
   const [toggleGame, setToggleGame] = useState(false);
+
+  const handleClick = () => {
+    setToggleGame(true);
+  };
   return (
     <>
       {toggleGame ? (
-        <div>
-          <Game />
-          <button
-            type="button"
-            onClick={() => setToggleGame(!setToggleGame)}
-            className="btn btn-primary"
-          >
-            Click Me to Start
-          </button>
-        </div>
-      ) : (
-        <div>
+        <>
           <GameElements />
-        </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <h1>Welcome to React Trivia!!</h1>
+            <h1>Press The Start Button to Begin</h1>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleClick}
+            >
+              Click Me to Start
+            </button>
+          </div>
+        </>
       )}
     </>
   );
 }
-export default App;
