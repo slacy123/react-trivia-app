@@ -201,7 +201,7 @@ const QuestionList = () => {
   ];
   return (
     <>
-      <App triviaQuestions={items} />
+    <h1>Nothing Here Yet</h1>
     </>
   );
 };

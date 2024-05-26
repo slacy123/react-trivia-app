@@ -1,9 +1,8 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import "./GameElements.css";
-import QuestionList from "./Components/gameQuestions";
 import { useState } from "react";
-import GameElements from "./Components/GameElements";
+import GameElements from "./components/GameElements";
 
 export default function App() {
   const [toggleGame, setToggleGame] = useState(false);
