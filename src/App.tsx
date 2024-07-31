@@ -6,6 +6,8 @@ import GameElements from "./components/GameElements";
 
 export default function App() {
   const [toggleGame, setToggleGame] = useState(false);
+  const [currentIndex, setcurrentIndex] = useState(0);
+  const [currentScore, setcurrentScore] = useState(0);
 
   const handleClick = () => {
     setToggleGame(true);
@@ -34,3 +36,5 @@ export default function App() {
     </>
   );
 }
+
+
