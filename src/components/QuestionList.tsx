@@ -1,7 +1,6 @@
 import { useState } from "react";
 import App from "../App";
-import Gameplay from "./GameElements";
-import GameElements from "./GameElements";
+import "./GameElements.css"
 
 interface Questions {
   id:number;
@@ -208,7 +207,7 @@ const items:Questions[] = [
     optionFour: "Chello",
   },
 ];
-function displayQuestion(items:Questions) {
+function QuestionList(items:Questions) {
   const [question, setQuestion] = useState(0);
   return (
     <>
@@ -220,9 +219,13 @@ function displayQuestion(items:Questions) {
               <button className="options">{items.optionThree}</button>
               <button className="options">{items.optionFour}</button>
             </div>
+            <div>
+                <button className="Next">Prev</button>
+                <button className="Prev">Next</button>
+            </div>
           </div>
     </>
   )
 }
 
-export default displayQuestion;
+export default QuestionList;

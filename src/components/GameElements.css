@@ -2,7 +2,7 @@
   background-color: #048ff9;
   border: none;
   color: white;
-  padding: 50px 80px;
+  padding: 60px 100px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -22,7 +22,7 @@
   transform: translateY(4px);
 }
 
-#Next {
+.Next {
   border-radius: 4px;
   background-color: #f45b1e;
   border: none;
@@ -33,15 +33,15 @@
   width: 200px;
   transition: all 0.5s;
   cursor: pointer;
-  margin-left: 740px;
+  margin-right:500px
 }
 
-#Next:hover {
+.Next:hover {
   background-color: #118f33;
   transition: 0.5s;
 }
 
-#Prev {
+.Prev {
   border-radius: 4px;
   background-color: #f45b1e;
   border: none;
@@ -54,7 +54,7 @@
   cursor: pointer;
 }
 
-#Prev:hover {
+.Prev:hover {
   background-color: #118f33;
   transition: 0.5s;
 }
