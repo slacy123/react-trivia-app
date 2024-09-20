@@ -1,9 +1,0 @@
-interface questionOptions {
-  triviaTopic: string;
-  triviaQuestion: string;
-  answer: string;
-  optionOne: string;
-  optionTwo: string;
-  optionThree: string;
-  optionFour: string;
-}
