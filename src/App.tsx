@@ -1,23 +1,22 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import './App.css'
+import "bootstrap/dist/css/bootstrap.css";
+import "./App.css";
+import "./GameElements.css";
 import { useState } from "react";
+import GameElements from "./components/GameElements";
 
+export default function App() {
   const [toggleGame, setToggleGame] = useState(false);
   const [currentIndex, setcurrentIndex] = useState(0);
   const [currentScore, setcurrentScore] = useState(0);
 
-
-export default function App() {
-
   const handleClick = () => {
     setToggleGame(true);
   };
-  
   return (
     <>
       {toggleGame ? (
         <>
-          
+          <GameElements />
         </>
       ) : (
         <>
