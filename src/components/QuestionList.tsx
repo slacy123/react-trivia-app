@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import App from "../App";
 import "./GameElements.css"
 
@@ -11,7 +11,10 @@ interface Questions {
   optionThree:string;
   optionFour:string;
 }
-const items:Questions[] = [
+
+
+
+let items = [
   {
     id: 1,
     triviaQuestion:
@@ -207,11 +210,30 @@ const items:Questions[] = [
     optionFour: "Chello",
   },
 ];
+
+
 function QuestionList(items:Questions) {
-  const [question, setQuestion] = useState(0);
+    const [question, setQuestion] = useState(0);
+    const lastValue = useRef(question);
+    let presentQuestion:Questions[] = [];
+
+    useEffect(() => {
+        let copyIndex = question;
+        console.log(question);
+        presentQuestion.splice(0, presentQuestion.length);
+        if(question > lastValue.current) {
+            if(question >= 0 && question <= 20) {
+                
+            }
+        } else if(question >= 0) {
+
+        }
+        lastValue.current = question;
+    }, [question])    
   return (
     <>
       <div>
+            <h1>Question: {question} of 20</h1>
             <h1>{items.triviaQuestion}</h1>
             <button className="options">{items.optionOne}</button>
             <button className="options">{items.optionTwo}</button>
@@ -220,8 +242,8 @@ function QuestionList(items:Questions) {
               <button className="options">{items.optionFour}</button>
             </div>
             <div>
-                <button className="Next">Prev</button>
-                <button className="Prev">Next</button>
+                <button className="Next" onClick={() => setQuestion(question => question - 1)}>Prev</button>
+                <button className="Prev" onClick={() => setQuestion(question => question + 1)}>Next</button>
             </div>
           </div>
     </>
