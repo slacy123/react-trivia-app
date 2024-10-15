@@ -4,6 +4,17 @@ import "./components/GameElements.css"
 import { useState } from "react";
 import QuestionList from "./components/QuestionList";
 
+interface Questions {
+  id:number;
+  triviaQuestion: string;
+  answer: string;
+  optionOne:string;
+  optionTwo:string;
+  optionThree:string;
+  optionFour:string;
+}
+
+
 
 export default function App() {
   const [toggleGame, setToggleGame] = useState(false);
@@ -36,6 +47,7 @@ export default function App() {
       )}
     </>
   );
+  
 }
 
 
