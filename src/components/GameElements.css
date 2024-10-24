@@ -12,6 +12,10 @@
   margin: 20px;
 }
 
+h1 {
+  color:white
+}
+
 .options:hover {
   background-color: #3e8e41;
 }

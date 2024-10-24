@@ -1,29 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import App from "../App";
 import "./GameElements.css"
 
 interface Question {
-  id:number;
-  triviaQuestion: string;
-  answer: string;
-  optionOne:string;
-  optionTwo:string;
-  optionThree:string;
-  optionFour:string;
+  id:number,
+  triviaQuestion: string,
+  answer: string,
+  optionOne:string,
+  optionTwo:string,
+  optionThree:string,
+  optionFour:string,
 }
 
-const presentQuestion:Question[] = [
-  {
-    id: 1,
-    triviaQuestion:
-      "Disney's Animal Kingdom theme park opened in Florida in Which Year?",
-    answer: "1998",
-    optionOne: "1998",
-    optionTwo: "1990",
-    optionThree: "2004",
-    optionFour: "2010",
-  }
-]
+const presentQuestion:Question[] = []
 
 const questionData:Question[] = [
   {
@@ -224,40 +213,34 @@ const questionData:Question[] = [
   
   const QuestionList = () => {
     const [question, setQuestion] = useState(1);
-    const lastValue = useRef(question);
     
-    useEffect(() => {  
-        if(question >= 1 && question <= 20) {
-          try {
+        if(question >= 0 && question <= 19) {
             presentQuestion.length = 0;
-            const dataHandler = questionData.find((item) => item.id === question)
+            const dataHandler = questionData.find((index) => index.id === question)
             console.log(dataHandler)
             presentQuestion.push(dataHandler!)
             console.log(presentQuestion)
             console.log(question)
-              } catch (error) {
                 console.log("Error")
-              }
             } else {
               console.log("Invalid Question Value")
           }
-        }, [question])
     return (
       <>
-      <div>
-        {presentQuestion.map((item) => (
-          <div key={item.id}>
-            <h1>Question: {question} of 20</h1>
-            <h1>{item.triviaQuestion}</h1>
-            <button className="options">{item.optionOne}</button>
-            <button className="options">{item.optionTwo}</button>
-            <button className="options">{item.optionThree}</button>
-            <button className="options">{item.optionFour}</button>
-          </div>
+        <div>
+          {presentQuestion.map((item) => (
+            <div key={item.id}>
+              <h1>Question: {item.id} of 20</h1>
+              <h1>{item.triviaQuestion}</h1>
+              <button className="options">{item.optionOne}</button>
+              <button className="options">{item.optionTwo}</button>
+              <button className="options">{item.optionThree}</button>
+              <button className="options">{item.optionFour}</button>
+            </div>
         ))}
             <div>
-                <button className="Next" onClick={() => setQuestion(question => question - 1)}>Prev</button>
-                <button className="Prev" onClick={() => setQuestion(question => question + 1)}>Next</button>
+                <button className="Next" onClick={() => setQuestion(question - 1)}>Prev</button>
+                <button className="Prev" onClick={() => setQuestion(question + 1)}>Next</button>
             </div>
         </div>
     </>
