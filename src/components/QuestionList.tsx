@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import App from "../App";
 import "./GameElements.css"
 
 interface Question {
-  id:number;
-  triviaQuestion: string;
-  answer: string;
-  optionOne:string;
-  optionTwo:string;
-  optionThree:string;
-  optionFour:string;
+  id:number,
+  triviaQuestion: string,
+  answer: string,
+  optionOne:string,
+  optionTwo:string,
+  optionThree:string,
+  optionFour:string,
 }
 
 const presentQuestion:Question[] = []
@@ -243,12 +243,11 @@ const questionData:Question[] = [
         if(question >= 1 && question <= 20) {
           try {
             presentQuestion.length = 0;
-            const dataHandler = questionData.find((item) => item.id === question)
+            const dataHandler = questionData.find((index) => index.id === question)
             console.log(dataHandler)
             presentQuestion.push(dataHandler!)
             console.log(presentQuestion)
             console.log(question)
-              } catch (error) {
                 console.log("Error")
               }
         }
