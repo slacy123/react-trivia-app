@@ -12,18 +12,7 @@ interface Question {
   optionFour:string;
 }
 
-const presentQuestion:Question[] = [
-  {
-    id: 1,
-    triviaQuestion:
-      "Disney's Animal Kingdom theme park opened in Florida in Which Year?",
-    answer: "1998",
-    optionOne: "1998",
-    optionTwo: "1990",
-    optionThree: "2004",
-    optionFour: "2010",
-  }
-]
+const presentQuestion:Question[] = []
 
 const questionData:Question[] = [
   {
@@ -217,16 +206,40 @@ const questionData:Question[] = [
     answer: "Banjo",
     optionOne: "Violin",
     optionTwo: "Guitar",
-      optionThree: "Banjo",
-      optionFour: "Chello",
+    optionThree: "Banjo",
+    optionFour: "Chello",
     },
   ];
+
+  const handleAnswer = () => {
+
+  }
+
   
   const QuestionList = () => {
-    const [question, setQuestion] = useState(1);
-    const lastValue = useRef(question);
     
-    useEffect(() => {  
+    const [question, setQuestion] = useState(1);
+    const [isDiabled, isSetDisabled] = useState(true);
+    const [optionsDisabled, isOptionsDisabled] = useState(false);
+    const [answerVisible, setAnswerVisible] = useState<boolean>(false);
+    const [isVisible, isSetVisible] = useState(false);
+    const handleClick = (button:React.MouseEvent<HTMLButtonElement>) => {
+        isSetVisible(true)
+        isOptionsDisabled(true)
+        const element = button.currentTarget;
+        element.style.backgroundColor = 'purple';
+        
+        // let elem = document.getElementsByClassName("button-selected")[0];
+        // if (elem) {
+        //   button.className = ""
+        // }
+        // button.className = "button-selected"
+    }
+        if(question < 1) {
+          setQuestion(1);      
+        } else if(question > 20) {
+          setQuestion(20);
+        }
         if(question >= 1 && question <= 20) {
           try {
             presentQuestion.length = 0;
@@ -238,10 +251,7 @@ const questionData:Question[] = [
               } catch (error) {
                 console.log("Error")
               }
-            } else {
-              console.log("Invalid Question Value")
-          }
-        }, [question])
+        }
     return (
       <>
       <div>
@@ -249,15 +259,17 @@ const questionData:Question[] = [
           <div key={item.id}>
             <h1>Question: {question} of 20</h1>
             <h1>{item.triviaQuestion}</h1>
-            <button className="options">{item.optionOne}</button>
-            <button className="options">{item.optionTwo}</button>
-            <button className="options">{item.optionThree}</button>
-            <button className="options">{item.optionFour}</button>
+            <button className="options" disabled = {optionsDisabled} onClick={handleClick}>{item.optionOne}</button>
+            <button className="options" disabled = {optionsDisabled} onClick={handleClick}>{item.optionTwo}</button>
+            <button className="options" disabled = {optionsDisabled} onClick={handleClick}>{item.optionThree}</button>
+            <button className="options" disabled = {optionsDisabled} onClick={handleClick}>{item.optionFour}</button>
+            {answerVisible && <h1> Correct Answer:{item.answer}</h1>}
           </div>
         ))}
             <div>
                 <button className="Next" onClick={() => setQuestion(question => question - 1)}>Prev</button>
-                <button className="Prev" onClick={() => setQuestion(question => question + 1)}>Next</button>
+                {isVisible && <button className="Check" >Check Answer</button>}
+                <button className="Prev" disabled = {isDiabled} onClick={() => setQuestion(question => question + 1)}>Next</button>
             </div>
         </div>
     </>

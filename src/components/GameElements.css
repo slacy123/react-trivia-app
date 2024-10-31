@@ -2,7 +2,7 @@
   background-color: #048ff9;
   border: none;
   color: white;
-  padding: 60px 100px;
+  padding: 60px 60px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -23,6 +23,7 @@
 }
 
 .Next {
+  position:'fixed';
   border-radius: 4px;
   background-color: #f45b1e;
   border: none;
@@ -33,7 +34,8 @@
   width: 200px;
   transition: all 0.5s;
   cursor: pointer;
-  margin-right:500px
+  margin-top: 50px;
+  margin-right: 50px;
 }
 
 .Next:hover {
@@ -42,6 +44,7 @@
 }
 
 .Prev {
+  position: 'fixed';
   border-radius: 4px;
   background-color: #f45b1e;
   border: none;
@@ -50,11 +53,43 @@
   font-size: 28px;
   padding: 20px;
   width: 200px;
-  transition: all 0.5s;
-  cursor: pointer;
+
 }
 
 .Prev:hover {
   background-color: #118f33;
   transition: 0.5s;
+}
+
+.Check {
+  position: 'fixed';
+  border-radius: 4px;
+  background-color: #f45b1e;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 250px;
+  cursor: pointer;
+  margin-right: 50px;
+}
+
+.Check:hover {
+  background-color: #118f33;
+  transition: 0.5s;
+}
+
+.button-selected {
+  background-color: #118f33;
+  border: none;
+  color: white;
+  padding: 60px 60px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 45px;
+  border-radius: 10px;
+  box-shadow: 0 9px #999;
+  margin: 20px;
 }
