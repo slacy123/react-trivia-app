@@ -13,7 +13,7 @@
 }
 
 h1 {
-  color:white
+  color:black
 }
 
 .options:hover {
@@ -36,8 +36,6 @@ h1 {
   font-size: 28px;
   padding: 20px;
   width: 200px;
-  transition: all 0.5s;
-  cursor: pointer;
   margin-top: 50px;
   margin-right: 50px;
 }
@@ -50,7 +48,7 @@ h1 {
 .Prev {
   position: 'fixed';
   border-radius: 4px;
-  background-color: #f45b1e;
+  background-color: darkgray;
   border: none;
   color: #ffffff;
   text-align: center;
@@ -82,18 +80,4 @@ h1 {
 .Check:hover {
   background-color: #118f33;
   transition: 0.5s;
-}
-
-.button-selected {
-  background-color: #118f33;
-  border: none;
-  color: white;
-  padding: 60px 60px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 45px;
-  border-radius: 10px;
-  box-shadow: 0 9px #999;
-  margin: 20px;
 }

@@ -211,46 +211,54 @@ const questionData:Question[] = [
     },
   ];
 
-  const handleAnswer = () => {
 
-  }
 
   
   const QuestionList = () => {
-    
-    const [question, setQuestion] = useState(1);
-    const [isDiabled, isSetDisabled] = useState(true);
-    const [optionsDisabled, isOptionsDisabled] = useState(false);
+    let savedAnswer:string
+    const [question, setQuestion] = useState<number>(1);
+    const [isDiabled, isSetDisabled] = useState<boolean>(true);
+    const [optionsDisabled, isOptionsDisabled] = useState<boolean>(false);
     const [answerVisible, setAnswerVisible] = useState<boolean>(false);
-    const [isVisible, isSetVisible] = useState(false);
+    const [isVisible, isSetVisible] = useState<boolean>(false);
+    const [buttonColor, setButtonColor] = useState<string>('darkgray');
+    const [optionColors, setOptionColors] = useState<string>('blue');
+    const nextQuestion = () => {
+      setAnswerVisible(false);
+      isSetVisible(false);
+      setOptionColors('blue');
+      isSetDisabled(true);
+      setButtonColor('darkgray');
+      isOptionsDisabled(false);
+      setQuestion(question + 1);
+    }
+    const prevQuestion = () => {
+      setQuestion(question - 1);
+    }
     const handleClick = (button:React.MouseEvent<HTMLButtonElement>) => {
-        isSetVisible(true)
-        isOptionsDisabled(true)
+        isSetVisible(true);
+        isOptionsDisabled(true);
+        setOptionColors('darkgray');
         const element = button.currentTarget;
         element.style.backgroundColor = 'purple';
-        
-        // let elem = document.getElementsByClassName("button-selected")[0];
-        // if (elem) {
-        //   button.className = ""
-        // }
-        // button.className = "button-selected"
+        savedAnswer = button.currentTarget.innerText;
     }
-        if(question < 1) {
-          setQuestion(1);      
-        } else if(question > 20) {
-          setQuestion(20);
-        }
-        if(question >= 1 && question <= 20) {
-          try {
-            presentQuestion.length = 0;
-            const dataHandler = questionData.find((index) => index.id === question)
-            console.log(dataHandler)
-            presentQuestion.push(dataHandler!)
-            console.log(presentQuestion)
-            console.log(question)
-                console.log("Error")
-              }
-        }
+
+    if(question < 1) {
+      setQuestion(1);      
+    } else if(question > 20) {
+      setQuestion(20);
+    }
+    if(question >= 1 && question <= 20) {
+      presentQuestion.length = 0;
+      const dataHandler = questionData.find((index) => index.id === question)
+      presentQuestion.push(dataHandler!)
+    }
+    const showAnswer = () => {
+    setAnswerVisible(true);
+    isSetDisabled(false);
+    setButtonColor('#f45b1e');
+    }
     return (
       <>
       <div>
@@ -258,21 +266,21 @@ const questionData:Question[] = [
           <div key={item.id}>
             <h1>Question: {question} of 20</h1>
             <h1>{item.triviaQuestion}</h1>
-            <button className="options" disabled = {optionsDisabled} onClick={handleClick}>{item.optionOne}</button>
-            <button className="options" disabled = {optionsDisabled} onClick={handleClick}>{item.optionTwo}</button>
-            <button className="options" disabled = {optionsDisabled} onClick={handleClick}>{item.optionThree}</button>
-            <button className="options" disabled = {optionsDisabled} onClick={handleClick}>{item.optionFour}</button>
+            <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionTwo}</button>
+            <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionOne}</button>
+            <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionThree}</button>
+            <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionFour}</button>
             {answerVisible && <h1> Correct Answer:{item.answer}</h1>}
           </div>
         ))}
             <div>
-                <button className="Next" onClick={() => setQuestion(question => question - 1)}>Prev</button>
-                {isVisible && <button className="Check" >Check Answer</button>}
-                <button className="Prev" disabled = {isDiabled} onClick={() => setQuestion(question => question + 1)}>Next</button>
+                <button className="Next" onClick={prevQuestion}>Prev</button>
+                {isVisible && <button className="Check" onClick = {showAnswer} >Check Answer</button>}
+                <button className="Prev" style={{backgroundColor: buttonColor}} disabled = {isDiabled} onClick={nextQuestion}>Next</button>
             </div>
         </div>
     </>
   )
 }
 
-export default QuestionList;
+export default QuestionList
