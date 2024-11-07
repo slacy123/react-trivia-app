@@ -12,6 +12,12 @@ interface Question {
   optionFour:string,
 }
 
+interface Responses {
+  answer:string,
+  verdict:boolean,
+  alreadyAnswered:boolean,
+}
+
 const presentQuestion:Question[] = []
 
 const questionData:Question[] = [
@@ -211,11 +217,12 @@ const questionData:Question[] = [
     },
   ];
 
+  const savedResponses:Responses[] = []
 
-
-  
   const QuestionList = () => {
-    let savedAnswer:string
+    let savedAnswer:string;
+    let correctAnswer = presentQuestion.find((item) => item.answer);
+    
     const [question, setQuestion] = useState<number>(1);
     const [isDiabled, isSetDisabled] = useState<boolean>(true);
     const [optionsDisabled, isOptionsDisabled] = useState<boolean>(false);
@@ -223,6 +230,9 @@ const questionData:Question[] = [
     const [isVisible, isSetVisible] = useState<boolean>(false);
     const [buttonColor, setButtonColor] = useState<string>('darkgray');
     const [optionColors, setOptionColors] = useState<string>('blue');
+    const [answeredMessage, showAnsweredMessage] = useState<boolean>(false);
+
+
     const nextQuestion = () => {
       setAnswerVisible(false);
       isSetVisible(false);
@@ -231,9 +241,18 @@ const questionData:Question[] = [
       setButtonColor('darkgray');
       isOptionsDisabled(false);
       setQuestion(question + 1);
+
+
     }
     const prevQuestion = () => {
       setQuestion(question - 1);
+      let temp;
+      if(temp) {
+        setOptionColors('darkgray');
+        showAnsweredMessage(true);
+        isOptionsDisabled(true);
+
+      }
     }
     const handleClick = (button:React.MouseEvent<HTMLButtonElement>) => {
         isSetVisible(true);
@@ -253,11 +272,17 @@ const questionData:Question[] = [
       presentQuestion.length = 0;
       const dataHandler = questionData.find((index) => index.id === question)
       presentQuestion.push(dataHandler!)
+      
     }
     const showAnswer = () => {
     setAnswerVisible(true);
     isSetDisabled(false);
     setButtonColor('#f45b1e');
+    // if(correctAnswer == savedAnswer) {
+    //   savedResponses.push({answer:savedAnswer, verdict: true, alreadyAnswered:true})
+    // } else {
+    //   savedResponses.push({answer:savedAnswer, verdict: false, alreadyAnswered:true})
+    // }
     }
     return (
       <>
@@ -271,6 +296,7 @@ const questionData:Question[] = [
             <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionThree}</button>
             <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionFour}</button>
             {answerVisible && <h1> Correct Answer:{item.answer}</h1>}
+            {answeredMessage && <h1>Question Already Answered</h1>}
           </div>
         ))}
             <div>
