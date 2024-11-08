@@ -221,7 +221,7 @@ const questionData:Question[] = [
 
   const QuestionList = () => {
     let savedAnswer:string;
-    let correctAnswer = presentQuestion.find((item) => item.answer);
+    let correctAnswer = presentQuestion.find((item) => item.answer) ?? " ";
     
     const [question, setQuestion] = useState<number>(1);
     const [isDiabled, isSetDisabled] = useState<boolean>(true);
@@ -278,11 +278,11 @@ const questionData:Question[] = [
     setAnswerVisible(true);
     isSetDisabled(false);
     setButtonColor('#f45b1e');
-    // if(correctAnswer == savedAnswer) {
-    //   savedResponses.push({answer:savedAnswer, verdict: true, alreadyAnswered:true})
-    // } else {
-    //   savedResponses.push({answer:savedAnswer, verdict: false, alreadyAnswered:true})
-    // }
+     if(correctAnswer === savedAnswer) {
+       savedResponses.push({answer:savedAnswer, verdict: true, alreadyAnswered:true})
+     } else {
+       savedResponses.push({answer:savedAnswer, verdict: false, alreadyAnswered:true})
+     }
     }
     return (
       <>
