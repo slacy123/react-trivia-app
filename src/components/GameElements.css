@@ -26,6 +26,8 @@ h1 {
   transform: translateY(4px);
 }
 
+
+
 .Next {
   position:'fixed';
   border-radius: 4px;
@@ -80,4 +82,10 @@ h1 {
 .Check:hover {
   background-color: #118f33;
   transition: 0.5s;
+}
+
+.uiHeader {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
 }
