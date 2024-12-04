@@ -3,7 +3,6 @@ import "./App.css";
 import "./components/GameElements.css"
 import { useState } from "react";
 import QuestionList from "./components/QuestionList";
-import Welcome from "./components/Welcome";
 
 
 export default function App() {

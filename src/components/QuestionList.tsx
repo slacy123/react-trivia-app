@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState} from "react";
 import App from "../App";
 import "./GameElements.css"
 import {questionData, Question} from "./questions"
 
 interface Responses {
+  questionID:number,
   answer:string,
-  verdict:boolean,
+  verdict:string,
+  defaultAnswer:string,
 }
 
 
@@ -20,20 +22,18 @@ const QuestionList = () => {
     const [isDiabled, isSetDisabled] = useState<boolean>(true);
     const [optionsDisabled, isOptionsDisabled] = useState<boolean>(false);
     const [answerVisible, setAnswerVisible] = useState<boolean>(false);
-    const [isanswerDisabled, setanswerDisabled] = useState<boolean>(false);
+    const [isanswerDisabled, setanswerDisabled] = useState<boolean>(true);
     const [buttonColor, setButtonColor] = useState<string>('darkgray');
     const [optionColors, setOptionColors] = useState<string>('blue');
     const [currentScore, setCurrentScore] = useState<number>(0);
+    const [showResults, setshowResults] = useState<boolean>(false);
+    const [resultButton, setresultButton] = useState<boolean>(false);
+    const [nextVisible, setnextVisible] = useState<boolean>(true);
 
-      //const answeredData = savedResponses.find((index) => index.alreadyAnswered === question);
-      //console.log(answeredData)
-      //if(answeredData?.alreadyAnswered != null) {
-       //setOptionColors('darkgray');
-       //showAnsweredMessage(true);
-       //isOptionsDisabled(true);
-       //isSetDisabled(false);
-       //setButtonColor('#f45b1e')
-    //}
+    
+    const Results = () => {
+      setshowResults(true);
+    }
 
     const nextQuestion = () => {
       setAnswerVisible(false);
@@ -41,8 +41,12 @@ const QuestionList = () => {
       isSetDisabled(true);
       setButtonColor('darkgray');
       isOptionsDisabled(false);
+      setanswerDisabled(true);
       setQuestion(question + 1);
-
+      if (question === 19) {
+        setnextVisible(false);
+        setresultButton(true);
+      }
 
     }
     const prevQuestion = () => {
@@ -52,12 +56,11 @@ const QuestionList = () => {
       const element = button.currentTarget;
       element.style.backgroundColor = 'purple';
       savedAnswer = button.currentTarget.innerText;
-      console.log(savedAnswer);
       if(savedAnswer === correctAnswer) {
-        savedResponses.push({answer:savedAnswer, verdict: true,})
+        savedResponses.push({answer:savedAnswer, verdict: "Correct", questionID:question, defaultAnswer:correctAnswer})
         setCurrentScore(currentScore + 10);
       } else {
-        savedResponses.push({answer:savedAnswer, verdict: false,})
+        savedResponses.push({answer:savedAnswer, verdict: "Incorrect", questionID:question, defaultAnswer:correctAnswer})
         setCurrentScore(currentScore - 10);
       }
       isOptionsDisabled(true);
@@ -65,14 +68,12 @@ const QuestionList = () => {
     }
     if(question < 1) {
       setQuestion(1);      
-    } else if(question > 20) {
-      setQuestion(20);
     }
     if(question >= 1 && question <= 20) {
       presentQuestion.length = 0;
-      const dataHandler = questionData.find((index) => index.id === question)
+      const dataHandler = questionData.find((index) => index.id === question);
       presentQuestion.push(dataHandler!);
-      correctAnswer = presentQuestion[0].answer ?? ""
+      correctAnswer = presentQuestion[0].answer ?? "";
     }
     const showAnswer = () => {
     setAnswerVisible(true);
@@ -82,16 +83,32 @@ const QuestionList = () => {
     }
     return (
       <>
+      {showResults ? (
+        <>
+        <h1>Congrats on Completing the Quiz, Here are your Results!</h1>
+        {savedResponses.map((item, index) => (
+            <div key={index}>
+                <h1>----------------------------</h1>
+                <h2>Question # {item.questionID}</h2>
+                <h2>Your Answer: {item.answer}</h2>
+                <h2>Correct Answer: {item.defaultAnswer}</h2>
+                <h2>Result: {item.verdict}</h2>
+                <h1>----------------------------</h1>
+            </div>
+        ))}
+        </>
+      ) : (
+      <>
       <div>
         <div className= "uiHeader" >
           <h1>Question: {question} of 20</h1>
           <h1>Score: {currentScore}</h1>
-        </div>
+      </div>
         {presentQuestion.map((item) => (
           <div key={item.id}>
             <h1>{item.triviaQuestion}</h1>
-            <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionTwo}</button>
             <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionOne}</button>
+            <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionTwo}</button>
             <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionThree}</button>
             <button className="options" style = {{backgroundColor:optionColors}} disabled = {optionsDisabled} onClick={handleClick}>{item.optionFour}</button>
             {answerVisible && <h1> Correct Answer:{item.answer}</h1>}
@@ -100,11 +117,14 @@ const QuestionList = () => {
             <div>
                 <button className="Next" onClick={prevQuestion}>Prev</button>
                 <button className="Check" onClick = {showAnswer} disabled={isanswerDisabled} >Check Answer</button>
-                <button className="Prev" style={{backgroundColor: buttonColor}} disabled = {isDiabled} onClick={nextQuestion}>Next</button>
+                {nextVisible && <button className="Prev" style={{backgroundColor: buttonColor}} disabled = {isDiabled} onClick={nextQuestion}>Next</button>}
+                {resultButton && <button className="Prev" style={{backgroundColor: buttonColor}} disabled = {isDiabled} onClick={Results}>Results</button>}
             </div>
         </div>
-    </>
+
+        </>
+      )}
+      </>
   )
 }
-
 export default QuestionList
